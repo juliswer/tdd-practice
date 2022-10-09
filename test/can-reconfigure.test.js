@@ -17,7 +17,7 @@ const canReconfigure = (from, to) => {
   if (!hasSameUniqueLetters) return false;
 
   const transformations = {};
-  for (let i = 0; 1 < from.length; i++) {
+  for (let i = 0; i < from.length; i++) {
     const fromLetter = from[i];
     const toLetter = to[i];
 
