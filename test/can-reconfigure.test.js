@@ -3,9 +3,9 @@ import { describe, it, expect } from "vitest";
 const canReconfigure = (from, to) => {
   if (typeof from !== "string") throw new Error("From is not a string");
   if (typeof to !== "string") throw new Error("To is not a string");
-  
+
   const isSameLength = from.length !== to.length;
-  if (isSameLength) return false;
+  if (!isSameLength) return false;
 
   // New set deletes the not unique values
   // inside an array or string
@@ -14,8 +14,19 @@ const canReconfigure = (from, to) => {
   // you'll know if they have unique letters or not
   // if the length of them (size) is the same to the other
   const hasSameUniqueLetters = new Set(from).size === new Set(to).size;
-
   if (!hasSameUniqueLetters) return false;
+
+  const transformations = {};
+  for (let i = 0; 1 < from.length; i++) {
+    const fromLetter = from[i];
+    const toLetter = to[i];
+
+    const storedLetter = transformations[fromLetter];
+    if (storedLetter && storedLetter !== toLetter) return false;
+
+    transformations[fromLetter] = toLetter;
+  }
+
   return true;
 };
 describe("canReconfigure", () => {
@@ -51,7 +62,15 @@ describe("canReconfigure", () => {
     expect(canReconfigure("abc", "de")).toBe(false);
   });
 
+  it("Should return false if strings provided have different length even with same unique letters", () => {
+    expect(canReconfigure("aac", "ac")).toBe(false);
+  });
+
   it("should return false if strings provided have different number of unique letters", () => {
     expect(canReconfigure("abc", "ddd")).toBe(false);
+  });
+
+  it("should return false if strings have different order of transformation", () => {
+    expect(canReconfigure("XBOX", "XXBO")).toBe(false);
   });
 });
