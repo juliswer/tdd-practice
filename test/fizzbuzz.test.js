@@ -1,17 +1,5 @@
 import { describe, expect, it } from "vitest";
-
-const fizzbuzz = (number) => {
-  if (typeof number !== "number")
-    throw new Error("parameter provided must be a number");
-
-  if (Number.isNaN(number))
-    throw new Error("parameter provided must be a number");
-
-  if (number % 3 === 0) return "fizz";
-  if (number % 5 === 0) return "buzz";
-  if (number % 5 === 0 && number % 3 === 0) return "fizzbuzz";
-  return number;
-};
+import { fizzbuzz } from "../src/fizzbuzz.js";
 
 describe("fizzbuzz", () => {
   /* it("Should be a function", () => {
@@ -56,7 +44,11 @@ describe("fizzbuzz", () => {
     expect(fizzbuzz(5)).toBe("buzz");
   });
 
-  /* it("should return fizzbuzz if number provided is multiple of 5 and 3", () => {
+  it("should return fizzbuzz if number provided is 15", () => {
     expect(fizzbuzz(15)).toBe("fizzbuzz");
-  }); */
+  });
+
+  it("should return fizzbuzz if number provided is multiple of 5 and 3", () => {
+    expect(fizzbuzz(15)).toBe("fizzbuzz");
+  });
 });
